@@ -62,7 +62,7 @@ int main() {
 
     int luggage, handLuggage;
     std::string crewMemberType;
-    for (int i = 0; i < 2; ++i) {
+    for (int i = 0; i < 8; ++i) {
         std::cin >> crewMemberType >> luggage >> handLuggage;
         if (crewMemberType == "PILOT") {
             units.push_back(std::make_shared<Pilot>(i + 1));
@@ -71,7 +71,7 @@ int main() {
         }
     }
 
-    int i = 3;
+    int i = 8;
     std::string passengerType;
     while (std::cin >> passengerType) {
         std::vector<int> luggage;
