@@ -1,0 +1,4 @@
+*.txt
+*.out
+.*/
+_clang-format
