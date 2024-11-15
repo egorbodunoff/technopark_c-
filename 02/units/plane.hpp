@@ -2,6 +2,7 @@
 #define PLANE_HPP
 
 #include <memory>
+#include <unordered_map>
 #include <vector>
 
 #include "passengers.hpp"
@@ -19,13 +20,13 @@ class PlaneSegment {
     bool canAddLuggage(int weight) const;
     void addLuggage(int weight, int passengerID);
     void addHandLuggage(int weight, int passengerID);
-    void addOccupant(std::shared_ptr<Passenger> unit);
     bool isOverloaded() const;
     int getCurrentLuggageWeight() const;
     int getCurrentHandLuggageWeight() const;
     int getCurrentTotalWeight() const;
     int getMaxTotalWeight() const;
-    bool removeMinLuggageUnits(int requiredWeight);
+    bool removeMinLuggageUnits(int requiredWeight,
+                               std::unordered_map<int, std::shared_ptr<Passenger>> passengers);
 };
 
 class Plane {
@@ -33,6 +34,7 @@ class Plane {
     PlaneSegment firstClassSegment;
     PlaneSegment businessClassSegment;
     PlaneSegment economyClassSegment;
+    std::unordered_map<int, std::shared_ptr<Passenger>> passengers;
 
     bool tryAddPassengerToSegment(PlaneSegment& segment, std::shared_ptr<Passenger> passenger);
 

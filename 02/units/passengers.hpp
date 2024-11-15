@@ -9,7 +9,7 @@ class Passenger : public Unit {
    protected:
     int maxHandLuggageWeight;  // Максимальный вес ручной клади
     int maxLuggageWeight;      // Максимальный вес багажа
-    int maxLuggageItems;       // Максимальное количество мест багажа
+    size_t maxLuggageItems;    // Максимальное количество мест багажа
 
    public:
     Passenger(int id, const std::string& type, int maxHandLuggage, int maxLuggage, int maxItems);

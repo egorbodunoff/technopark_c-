@@ -1,7 +1,7 @@
-#include "../units/crew_members.hpp"
-
 #include <cassert>
 #include <iostream>
+
+#include "../units/crew_members.hpp"
 
 void test_CrewMember_basic_properties() {
     CrewMember crew(1, "CREW_MEMBER");
@@ -17,6 +17,8 @@ void test_CrewMember_hand_luggage_restrictions() {
 
 void test_CrewMember_total_luggage_weight() {
     CrewMember crew(3, "CREW_MEMBER");
+    crew.addHandLuggage(5);
+    crew.addLuggage(10);
     assert(crew.getTotalHandLuggageWeight() == 0);  // Должно возвращать 0
     assert(crew.getTotalLuggageWeight() == 0);      // Должно возвращать 0
 }
@@ -35,6 +37,8 @@ void test_Pilot_hand_luggage_restrictions() {
 
 void test_Pilot_total_luggage_weight() {
     Pilot pilot(6);
+    pilot.addHandLuggage(5);
+    pilot.addLuggage(10);
     assert(pilot.getTotalHandLuggageWeight() == 0);  // Должно возвращать 0
     assert(pilot.getTotalLuggageWeight() == 0);      // Должно возвращать 0
 }
@@ -53,6 +57,8 @@ void test_Steward_hand_luggage_restrictions() {
 
 void test_Steward_total_luggage_weight() {
     Steward steward(9);
+    steward.addHandLuggage(5);
+    steward.addLuggage(10);
     assert(steward.getTotalHandLuggageWeight() == 0);  // Должно возвращать 0
     assert(steward.getTotalLuggageWeight() == 0);      // Должно возвращать 0
 }

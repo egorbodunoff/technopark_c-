@@ -1,8 +1,8 @@
-#include "../units/passengers.hpp"
-
 #include <cassert>
 #include <iostream>
 #include <limits>
+
+#include "../units/passengers.hpp"
 
 void test_Passenger_basic_properties() {
     Passenger passenger(1, "PASSENGER", 20, 40, 2);
