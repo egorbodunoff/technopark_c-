@@ -1,5 +1,6 @@
 #include <cassert>
 #include <iostream>
+
 #include "lru.hpp"
 
 void testAddAndRetrieveEntry() {
@@ -25,7 +26,7 @@ void testOverwriteEntry() {
 }
 
 void testEvictionBySize() {
-    LRUCache<std::string, std::string> cache(3, 1024); 
+    LRUCache<std::string, std::string> cache(3, 1024);
     assert(cache.put("key1", "value1"));
     assert(cache.put("key2", "value2"));
     assert(cache.put("key3", "value3"));
@@ -72,6 +73,5 @@ int main() {
     testEvictionByEntries();
     testClear();
 
-    std::cout << "All tests passed!\n";
     return 0;
 }

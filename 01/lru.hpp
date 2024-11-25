@@ -1,15 +1,16 @@
 #ifndef LRU_HPP
 #define LRU_HPP
 
-#include "intrusive_list.hpp"
-#include "hashtable.hpp"
-#include <string>
-#include <vector>
-#include <stdexcept>
 #include <cstring>
-#include <sstream>
 #include <iomanip>
 #include <list>
+#include <sstream>
+#include <stdexcept>
+#include <string>
+#include <vector>
+
+#include "hashtable.hpp"
+#include "intrusive_list.hpp"
 
 template <typename Key, typename Value, typename Hash = std::hash<Key>>
 class LRUCache {
@@ -30,14 +31,12 @@ class LRUCache {
     LRUCache(size_t max_entries, size_t max_size_bytes)
         : max_entries_(max_entries), max_size_bytes_(max_size_bytes), current_size_bytes_(0) {}
 
-    ~LRUCache() {
-        clear(); 
-    }
+    ~LRUCache() { clear(); }
 
     bool put(const Key& key, const Value& value) {
         size_t entry_size = key.size() + sizeof(Value) + sizeof(CacheEntry);
         if (entry_size > max_size_bytes_ || max_entries_ == 0) {
-            return false; 
+            return false;
         }
 
         auto it = map_.find(key);
@@ -49,7 +48,8 @@ class LRUCache {
             evict(entry_size);
         }
 
-        auto& new_entry = entries_.emplace_back(key, value, entry_size);
+        // Создаем новый элемент и добавляем в list_
+        auto& new_entry = *new CacheEntry(key, value, entry_size);
         list_.push_front(new_entry);
         map_.insert(key, list_.begin());
         current_size_bytes_ += entry_size;
@@ -71,7 +71,6 @@ class LRUCache {
     void clear() {
         list_.clear();
         map_.clear();
-        entries_.clear();
         current_size_bytes_ = 0;
     }
 
@@ -81,7 +80,8 @@ class LRUCache {
 
    private:
     void evict(size_t required_size) {
-        while (!list_.empty() && (list_.size() >= max_entries_ || current_size_bytes_ + required_size > max_size_bytes_)) {
+        while (!list_.empty() &&
+               (list_.size() >= max_entries_ || current_size_bytes_ + required_size > max_size_bytes_)) {
             auto& oldest = list_.back();
             current_size_bytes_ -= oldest.size_bytes;
             map_.erase(oldest.key);
@@ -94,7 +94,6 @@ class LRUCache {
     size_t current_size_bytes_;
     ListType list_;
     MapType map_;
-    std::list<CacheEntry> entries_;
 };
 
 #endif

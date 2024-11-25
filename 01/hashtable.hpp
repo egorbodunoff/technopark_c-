@@ -14,8 +14,7 @@ class HashTable {
         bool occupied = false;
 
         Entry() : key(), value() {}
-        Entry(const Key& k, const Value& v, bool valid)
-            : key(k), value(v), occupied(valid) {}
+        Entry(const Key& k, const Value& v, bool valid) : key(k), value(v), occupied(valid) {}
     };
 
    public:
@@ -103,7 +102,7 @@ class HashTable {
             }
             index = (index + 1) % buckets_.size();
         }
-        
+
         return npos;
     }
 

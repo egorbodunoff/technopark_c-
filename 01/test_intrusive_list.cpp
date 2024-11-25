@@ -206,6 +206,22 @@ void test_clear() {
     assert(list.size() == 0);
 }
 
+void test_back_methods() {
+    IntrusiveList<Node, &Node::hook> list;
+    Node node1(1);
+    Node node2(2);
+
+    list.push_back(node1);
+    list.push_back(node2);
+
+    assert(list.back().value == 2);
+
+    const IntrusiveList<Node, &Node::hook> const_list = list;
+    assert(const_list.back().value == 2);
+
+    list.clear();
+}
+
 int main() {
     test_empty_list();
     test_push_back();
@@ -218,6 +234,7 @@ int main() {
     test_splice_with_single_node();
     test_splice_with_multiple_nodes();
     test_clear();
+    test_back_methods();
 
     return 0;
 }

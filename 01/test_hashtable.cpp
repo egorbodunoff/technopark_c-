@@ -4,9 +4,7 @@
 #include "hashtable.hpp"
 
 struct CustomHash {
-    size_t operator()(int key) const {
-        return key % 4;
-    }
+    size_t operator()(int key) const { return key % 4; }
 };
 
 void test_empty_and_size() {
@@ -42,7 +40,7 @@ void test_insert_with_existing_key() {
     ht.insert(1, 10);
 
     bool inserted = ht.insert(1, 20);
-    assert(inserted == false); 
+    assert(inserted == false);
     assert(ht[1] == 20);
 }
 
@@ -54,7 +52,7 @@ void test_erase() {
 
     ht.erase(1);
     auto value = ht.find(1);
-    assert(!value.has_value()); 
+    assert(!value.has_value());
 
     value = ht.find(2);
     assert(value.has_value() && value.value() == 20);
@@ -71,7 +69,7 @@ void test_operator() {
 }
 
 void test_load_factor() {
-    HashTable<int, int> ht(4); 
+    HashTable<int, int> ht(4);
 
     assert(ht.load_factor() == 0.0);
 
@@ -79,11 +77,11 @@ void test_load_factor() {
     ht.insert(2, 20);
     ht.insert(3, 30);
 
-    assert(ht.load_factor() == 3.0 / 4);  
+    assert(ht.load_factor() == 3.0 / 4);
 
     ht.insert(4, 40);
 
-    assert(ht.load_factor() == 4.0 / 8); 
+    assert(ht.load_factor() == 4.0 / 8);
 }
 
 void test_reserve() {
@@ -111,10 +109,10 @@ void test_clear() {
 void test_find_index() {
     HashTable<int, int> table(4);
     table.insert(1, 10);
-    table.insert(5, 20); 
-    table.insert(9, 30); 
+    table.insert(5, 20);
+    table.insert(9, 30);
 
-    assert(!table.find(13)); 
+    assert(!table.find(13));
 }
 
 void test_find_or_empty() {
@@ -122,9 +120,9 @@ void test_find_or_empty() {
     table.insert(1, 10);
     table.insert(5, 20);
 
-    table.erase(5); 
+    table.erase(5);
 
-    table.insert(9, 30); 
+    table.insert(9, 30);
     assert(table.find(9).value() == 30);
 }
 
@@ -151,6 +149,6 @@ int main() {
     test_clear();
     test_find_index();
     test_find_or_empty();
-    
+
     return 0;
 }

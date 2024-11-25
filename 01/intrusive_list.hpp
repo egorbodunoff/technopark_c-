@@ -2,8 +2,8 @@
 #define INTRUSIVE_LIST_HPP
 
 #include <cstddef>
-#include <iterator>
 #include <iostream>
+#include <iterator>
 
 template <typename T>
 struct IntrusiveListHook {
@@ -92,19 +92,9 @@ class IntrusiveList {
         }
     }
 
-    T& back() {
-        if (tail_ == nullptr) {
-            throw std::out_of_range("хи-хи-хи");
-        }
-        return *tail_;
-    }
+    T& back() { return *tail_; }
 
-    const T& back() const {
-        if (tail_ == nullptr) {
-            throw std::out_of_range("хи-хи-хи");
-        }
-        return *tail_;
-    }
+    const T& back() const { return *tail_; }
 
     void erase(T& element) {
         auto& hook = element.*Hook;
